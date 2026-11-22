@@ -23,6 +23,9 @@ export default function SiteHead({ dispatch }) {
   const router = useRouter();
   const meta = pageMeta(dispatch ? `/dispatches/${dispatch.slug}/` : router.pathname, dispatch);
   const path = (router.pathname || "/").replace(/\/$/, "") || "/";
+  const image = dispatch?.image;
+  const shareImage = image ? `${SITE_ORIGIN}${image.src}` : OG_IMAGE;
+  const shareImageAlt = image?.alt || SITE_NAME;
   const shareTitle = meta.shareTitle || meta.title;
   const shareDescription = meta.shareDescription || meta.description;
   const orgId = `${SITE_ORIGIN}/#organization`;
@@ -114,16 +117,16 @@ export default function SiteHead({ dispatch }) {
       <meta property="og:title" content={shareTitle} />
       <meta property="og:description" content={shareDescription} />
       <meta property="og:url" content={meta.url} />
-      <meta property="og:image" content={OG_IMAGE} />
-      <meta property="og:image:alt" content="Deep Clearance" />
-      <meta property="og:image:type" content="image/png" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+      <meta property="og:image" content={shareImage} />
+      <meta property="og:image:alt" content={shareImageAlt} />
+      <meta property="og:image:type" content={image?.type || "image/png"} />
+      <meta property="og:image:width" content={image?.width || 1200} />
+      <meta property="og:image:height" content={image?.height || 630} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={shareTitle} />
       <meta name="twitter:description" content={shareDescription} />
-      <meta name="twitter:image" content={OG_IMAGE} />
-      <meta name="twitter:image:alt" content="Deep Clearance" />
+      <meta name="twitter:image" content={shareImage} />
+      <meta name="twitter:image:alt" content={shareImageAlt} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

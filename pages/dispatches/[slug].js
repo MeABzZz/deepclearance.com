@@ -23,6 +23,15 @@ export default function DispatchPage({ dispatch }) {
     <IntelChrome title={dispatch.title} lede={dispatch.summary}>
       <article className="dc-read">
         <time dateTime={dispatch.date}>{dispatchDate(dispatch.date)}</time>
+        {dispatch.image && (
+          <img
+            src={dispatch.image.src}
+            alt={dispatch.image.alt}
+            width={dispatch.image.width}
+            height={dispatch.image.height}
+            style={{ display: "block", maxWidth: "100%", height: "auto", margin: "1rem 0" }}
+          />
+        )}
         {dispatch.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         <h2>Sources</h2>
         <ul>
